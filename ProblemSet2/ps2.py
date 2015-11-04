@@ -6,7 +6,7 @@ import random
 import ps2_visualize
 import pylab
 
-random.seed(0)
+#random.seed(0)
 # For Python 2.7:
 from ps2_verify_movement27 import testRobotMovement
 
@@ -242,16 +242,18 @@ class StandardRobot(Robot):
         Move the robot to a new position and mark the tile it is on as having
         been cleaned.
         """
-        current_position = self.getRobotPosition()       
+        #Find the current position of the robot
+        current_position = self.getRobotPosition()
+        #Create a new position for the robot       
         new_position = current_position.getNewPosition(self.getRobotDirection(), self.speed)
+        #if the position is in the room, check to see if it is clean otherwise clean it
+        #if it is not in the room change the direction
         if self.room.isPositionInRoom(new_position): 
             self.setRobotPosition(new_position)
             if not self.room.isTileCleaned(math.floor(new_position.getX()),math.floor(new_position.getY())):
                 self.room.cleanTileAtPosition(new_position)                
         else:          
             self.setRobotDirection(random.randint(0,359))  
-        
-        '''
 
 # Uncomment this line to see your implementation of StandardRobot in action!
 testRobotMovement(StandardRobot, RectangularRoom)

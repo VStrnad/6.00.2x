@@ -6,6 +6,7 @@ import random
 import ps2_visualize
 import pylab
 
+random.seed(0)
 # For Python 2.7:
 from ps2_verify_movement27 import testRobotMovement
 
@@ -179,7 +180,8 @@ class Robot(object):
         n = random.uniform(0, room.height)
         self.position = Position(m, n)
         self.direction = random.randrange(0, 360)
-
+        room.cleanTileAtPosition(self.position)
+        
 
     def getRobotPosition(self):
         """
@@ -240,10 +242,19 @@ class StandardRobot(Robot):
         Move the robot to a new position and mark the tile it is on as having
         been cleaned.
         """
-        raise NotImplementedError
+        current_position = self.getRobotPosition()       
+        new_position = current_position.getNewPosition(self.getRobotDirection(), self.speed)
+        if self.room.isPositionInRoom(new_position): 
+            self.setRobotPosition(new_position)
+            if not self.room.isTileCleaned(math.floor(new_position.getX()),math.floor(new_position.getY())):
+                self.room.cleanTileAtPosition(new_position)                
+        else:          
+            self.setRobotDirection(random.randint(0,359))  
+        
+        '''
 
 # Uncomment this line to see your implementation of StandardRobot in action!
-##testRobotMovement(StandardRobot, RectangularRoom)
+testRobotMovement(StandardRobot, RectangularRoom)
 
 
 # === Problem 3

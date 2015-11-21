@@ -1,6 +1,6 @@
 import random
 
-def noReplacementSimulation(numTrials):
+def drawing_without_replacement_sim(numTrials):
     '''
     Runs numTrials trials of a Monte Carlo simulation
     of drawing 3 balls out of a bucket containing
@@ -10,7 +10,7 @@ def noReplacementSimulation(numTrials):
     '''
     count = 0
     for n in range(numTrials):
-        balls = ["r", "r", "r", "g", "g", "g"]
+        balls = ["r", "r", "r", "r", "g", "g", "g", "g"]
         i =0
         counter = []
         while i < 3:
@@ -22,7 +22,7 @@ def noReplacementSimulation(numTrials):
             count += 1
     return float(count)/numTrials
         
-print noReplacementSimulation(5000)
+print drawing_without_replacement_sim(5000)
             
         
         
